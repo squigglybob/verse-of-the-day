@@ -1,19 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography, Card, CardContent, Button, CardActions, makeStyles } from '@material-ui/core'
+
+const BIBLE_VERSION = 'LEB'
 
 const useStyles = makeStyles((theme) => ({
     title: {
-        fontSize: `${7/8}rem`,
+        fontSize: `${7 / 8}rem`,
     }
 }))
 
+console.log(process.env)
+
 function VerseCard({ verseRef }) {
 
+    const [passage, setPassage] = useState("")
     const classes = useStyles()
 
-    useEffect(() => {
+    const verseToPassageParam = (verseRef) => {
+        return verseRef.replace(/\s/g, '')
+    }
 
-        console.log(verseToPassageParam(verseRef))
+    useEffect(() => {
+        const passageParam = verseToPassageParam(verseRef)
+        const apiCall = `https://api.biblia.com/v1/bible/content/${BIBLE_VERSION}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
+
+        fetch(apiCall)
+            .then(res => res.json())
+            .then(res => {
+                setPassage(res.text)
+            })
 
     }, [verseRef])
 
@@ -26,8 +41,8 @@ function VerseCard({ verseRef }) {
                 <Typography variant="h5" component="h2" gutterBottom>
                     {verseRef}
                 </Typography>
-                <Typography variant="body" component="p">
-                    For God so loved the world that he gave his only begotten Son, that whoever believes in him will not perish but shall have eternal life.
+                <Typography variant="body1" component="p">
+                    {passage}
                 </Typography>
             </CardContent>
             <CardActions>
@@ -40,8 +55,3 @@ function VerseCard({ verseRef }) {
 }
 
 export default VerseCard
-
-function verseToPassageParam(verseRef) {
-
-    return verseRef.replace(/\s/g, '')
-}
