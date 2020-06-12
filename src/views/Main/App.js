@@ -2,20 +2,18 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import HeaderBar from 'components/common/HeaderBar'
 import Flex from 'components/common/Flex'
-import Paper from '@material-ui/core/Paper';
+import VerseCard from 'components/Verse/VerseCard';
+
+const verseRef = 'John 3:16'
 
 function App() {
   return (
     <div className="App">
       <CssBaseline />
       <HeaderBar />
-
       <Flex>
 
-        <Paper>
-          Hello there :)
-
-        </Paper>
+        <VerseCard verseRef={verseRef} />
 
       </Flex>
     </div>
