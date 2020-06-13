@@ -1,14 +1,13 @@
 import React from 'react'
-import { Typography, Card, CardContent, Button, CardActions, makeStyles } from '@material-ui/core'
+import { Typography, Card, CardContent, Button, CardActions, makeStyles, CircularProgress } from '@material-ui/core'
 import moment from 'moment'
-
 const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: `${7 / 8}rem`,
     }
 }))
 
-function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam }) {
+function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam, loading }) {
 
     const classes = useStyles()
 
@@ -27,9 +26,12 @@ function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam
                 <Typography color="textSecondary" gutterBottom>
                     {verseRef}
                 </Typography>
-                <Typography variant="body1" component="p">
-                    {passage}
-                </Typography>
+                {loading ?
+                    <CircularProgress /> :
+                    <Typography variant="body1" component="p">
+                        {passage}
+                    </Typography>
+                }
             </CardContent>
             <CardActions>
                 <Button href={getReadMoreUrl(verseRef)}>

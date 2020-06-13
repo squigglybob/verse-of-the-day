@@ -11,6 +11,7 @@ export default function VerseOfTheDay() {
     const [passage, setPassage] = useState("")
     const [dayOfYear, setDayOfYear] = useState(moment().dayOfYear())
     const [verseRef, setVerseRef] = useState(verses[dayOfYear-1])
+    const [loading, setLoading] = useState(true)
 
     const verseToPassageParam = (verseRef) => {
         if (!verseRef) return null
@@ -18,6 +19,7 @@ export default function VerseOfTheDay() {
     }
 
     useEffect(() => {
+        setLoading(true)
         setVerseRef(verses[dayOfYear-1])
     }, [dayOfYear])
 
@@ -29,9 +31,11 @@ export default function VerseOfTheDay() {
             .then(res => res.json())
             .then(res => {
                 setPassage(res.text)
+                setLoading(false)
             })
             .catch((error) => {
                 alert(error)
+                setLoading(false)
             })
 
     }, [verseRef])
@@ -51,6 +55,7 @@ export default function VerseOfTheDay() {
                 passage={passage}
                 bibleVersion={BIBLE_VERSION}
                 verseToPassageParam={verseToPassageParam}
+                loading={loading}
             />
         </div>
     )
