@@ -10,14 +10,15 @@ export default function VerseOfTheDay() {
 
     const [passage, setPassage] = useState("")
     const [dayOfYear, setDayOfYear] = useState(moment().dayOfYear())
-    const [verseRef, setVerseRef] = useState(verses[dayOfYear])
+    const [verseRef, setVerseRef] = useState(verses[dayOfYear-1])
 
     const verseToPassageParam = (verseRef) => {
+        if (!verseRef) return null
         return verseRef.replace(/\s/g, '')
     }
 
     useEffect(() => {
-        setVerseRef(verses[dayOfYear])
+        setVerseRef(verses[dayOfYear-1])
     }, [dayOfYear])
 
     useEffect(() => {
@@ -37,14 +38,20 @@ export default function VerseOfTheDay() {
 
     return (
         <div>
-            <input 
-            type="number" 
-            min="1"
-             max="366"
-             value={dayOfYear}
-             onChange={(e) => {setDayOfYear(e.target.value)}}
-             />
-            <VerseCard title="Verse of the Day" verseRef={verseRef} passage={passage} />
+            <input
+                type="number"
+                min="1"
+                max="366"
+                value={dayOfYear}
+                onChange={(e) => { setDayOfYear(e.target.value) }}
+            />
+            <VerseCard
+                title="Verse of the Day"
+                verseRef={verseRef}
+                passage={passage}
+                bibleVersion={BIBLE_VERSION}
+                verseToPassageParam={verseToPassageParam}
+            />
         </div>
     )
 }

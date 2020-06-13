@@ -8,9 +8,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function VerseCard({ verseRef, passage, title }) {
+function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam }) {
 
     const classes = useStyles()
+
+    const getReadMoreUrl = (verseRef) =>
+        `https://biblia.com/books/${bibleVersion.toLowerCase()}/${verseToPassageParam(verseRef)}`
 
     return (
         <Card>
@@ -29,7 +32,7 @@ function VerseCard({ verseRef, passage, title }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button>
+                <Button href={getReadMoreUrl(verseRef)}>
                     Read More
                 </Button>
             </CardActions>
