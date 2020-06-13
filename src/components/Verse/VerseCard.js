@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Typography, Card, CardContent, Button, CardActions, makeStyles } from '@material-ui/core'
-
-const BIBLE_VERSION = 'LEB'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -9,36 +8,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-console.log(process.env)
+function VerseCard({ verseRef, passage, title }) {
 
-function VerseCard({ verseRef }) {
-
-    const [passage, setPassage] = useState("")
     const classes = useStyles()
-
-    const verseToPassageParam = (verseRef) => {
-        return verseRef.replace(/\s/g, '')
-    }
-
-    useEffect(() => {
-        const passageParam = verseToPassageParam(verseRef)
-        const apiCall = `https://api.biblia.com/v1/bible/content/${BIBLE_VERSION}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
-
-        fetch(apiCall)
-            .then(res => res.json())
-            .then(res => {
-                setPassage(res.text)
-            })
-
-    }, [verseRef])
 
     return (
         <Card>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Verse of the Day
+                    {title}
                 </Typography>
                 <Typography variant="h5" component="h2" gutterBottom>
+                    {moment().format('LL')}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
                     {verseRef}
                 </Typography>
                 <Typography variant="body1" component="p">

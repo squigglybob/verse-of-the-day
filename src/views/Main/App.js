@@ -2,9 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import HeaderBar from 'components/common/HeaderBar'
 import Flex from 'components/common/Flex'
-import VerseCard from 'components/Verse/VerseCard';
-
-const verseRef = 'John 3:16'
+import VerseOfTheDay from 'views/VerseOfTheDay/VerseOfTheDay';
 
 function App() {
   return (
@@ -13,7 +11,7 @@ function App() {
       <HeaderBar />
       <Flex>
 
-        <VerseCard verseRef={verseRef} />
+        <VerseOfTheDay />
 
       </Flex>
     </div>
