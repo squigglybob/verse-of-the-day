@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam, loading }) {
+function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam, loading, error }) {
 
     const classes = useStyles()
 
@@ -32,9 +32,14 @@ function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam
                         {passage}
                     </Typography>
                 }
+                {error && 
+                <Typography variant="body1" component="p" color="error">
+                    Error: {error}
+                </Typography>
+                }
             </CardContent>
             <CardActions>
-                <Button href={getReadMoreUrl(verseRef)}>
+                <Button href={getReadMoreUrl(verseRef)} disabled={loading || error}>
                     Read More
                 </Button>
             </CardActions>

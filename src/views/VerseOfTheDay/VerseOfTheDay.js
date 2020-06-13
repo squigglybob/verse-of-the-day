@@ -10,8 +10,9 @@ export default function VerseOfTheDay() {
 
     const [passage, setPassage] = useState("")
     const [dayOfYear, setDayOfYear] = useState(moment().dayOfYear())
-    const [verseRef, setVerseRef] = useState(verses[dayOfYear-1])
+    const [verseRef, setVerseRef] = useState(verses[dayOfYear - 1])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
     const verseToPassageParam = (verseRef) => {
         if (!verseRef) return null
@@ -20,7 +21,7 @@ export default function VerseOfTheDay() {
 
     useEffect(() => {
         setLoading(true)
-        setVerseRef(verses[dayOfYear-1])
+        setVerseRef(verses[dayOfYear - 1])
     }, [dayOfYear])
 
     useEffect(() => {
@@ -28,13 +29,16 @@ export default function VerseOfTheDay() {
         const apiCall = `https://api.biblia.com/v1/bible/content/${BIBLE_VERSION}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
 
         fetch(apiCall)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error(res.statusText)
+                return res.json()
+            })
             .then(res => {
                 setPassage(res.text)
                 setLoading(false)
             })
             .catch((error) => {
-                alert(error)
+                setError(error.message)
                 setLoading(false)
             })
 
@@ -56,6 +60,7 @@ export default function VerseOfTheDay() {
                 bibleVersion={BIBLE_VERSION}
                 verseToPassageParam={verseToPassageParam}
                 loading={loading}
+                error={error}
             />
         </div>
     )
