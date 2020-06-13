@@ -1,8 +1,16 @@
- # verse-of-the-day Web app
+# verse-of-the-day Web app
 
 ## The brief
 
 [Dev Project Test](https://onesheep.org/developer-project-test)
+
+## My approach
+
+## Lessons learned
+
+## Time considerations
+
+## Further Developments
 
 ## The Dev Environment
 

@@ -32,10 +32,10 @@ function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam
                         {passage}
                     </Typography>
                 }
-                {error && 
-                <Typography variant="body1" component="p" color="error">
-                    Error: {error}
-                </Typography>
+                {error &&
+                    <Typography variant="body1" component="p" color="error">
+                        Error: {error}
+                    </Typography>
                 }
             </CardContent>
             <CardActions>
