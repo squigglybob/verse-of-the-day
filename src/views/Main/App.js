@@ -24,7 +24,6 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false)
 
   const handleSearchOpen = () => {
-    console.log(searchOpen);
     setSearchOpen(true)
   }
 
