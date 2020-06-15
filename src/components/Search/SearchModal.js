@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { Dialog, IconButton, DialogContent, DialogActions, Button, DialogTitle, makeStyles } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
-import Flex from 'components/common/Flex'
+
 import SelectBook from 'components/elements/SelectBook'
 import SelectNumber from 'components/elements/SelectNumber'
 
 import bookDetails from 'data/bibleChaptersVerses.min.js'
+import * as ROUTES from 'constants/routes'
 
 function getBookDetailLookup() {
     let bookDetailLookup = {}
@@ -33,6 +36,7 @@ const INITIAL_FORM_DATA = {
 function SearchModal({ open, handleClose }) {
 
     const classes = useStyles()
+    const history = useHistory()
 
     const [formData, setFormData] = useState(INITIAL_FORM_DATA)
     const [numberOfChapters, setNumberOfChapters] = useState(-1)
@@ -55,16 +59,6 @@ function SearchModal({ open, handleClose }) {
             setNumberOfVerses(chapterLength)
         }
     }, [formData.book, formData.chapter])
-
-    const handleCancel = () => {
-        setFormData(INITIAL_FORM_DATA)
-        handleClose()
-    }
-
-    const handleSubmit = () => {
-        setFormData(INITIAL_FORM_DATA)
-        handleClose()
-    }
 
     const onChangeBook = (value) => {
         setFormData({
@@ -98,6 +92,19 @@ function SearchModal({ open, handleClose }) {
             'verseFrom': formData.verseFrom,
             'verseTo': parseInt(value)
         })
+    }
+
+    const formDataToPassage = ({ book, chapter, verseFrom, verseTo }) => `${book}${chapter}${verseFrom > 0 ? ':' + verseFrom : ''}${verseTo > 0 ? '-' + verseTo : ''}`
+
+    const handleCancel = () => {
+        setFormData(INITIAL_FORM_DATA)
+        handleClose()
+    }
+
+    const handleSubmit = () => {
+        handleClose()
+        setFormData(INITIAL_FORM_DATA)
+        history.push(ROUTES.SEARCH + '/passage/' + formDataToPassage(formData), { ...formData })
     }
 
     const formValidated = formData.book !== '' && formData.chapter > 0
