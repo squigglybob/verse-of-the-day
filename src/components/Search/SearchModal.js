@@ -46,7 +46,7 @@ function SearchModal({ open, handleClose }) {
         }
     }, [formData.book])
 
-    // change number of verses dependent on the book
+    // change number of verses dependent on the chapter
     useEffect(() => {
         if (formData.book !== '' && formData.chapter > 0) {
             const book = bookDetailLookup[formData.book]
@@ -63,7 +63,6 @@ function SearchModal({ open, handleClose }) {
 
     const handleSubmit = () => {
         setFormData(INITIAL_FORM_DATA)
-        console.log('submit form data', formData)
         handleClose()
     }
 
@@ -101,6 +100,8 @@ function SearchModal({ open, handleClose }) {
         })
     }
 
+    const formValidated = formData.book !== '' && formData.chapter > 0
+
     return (
         <div>
             <Dialog
@@ -116,49 +117,50 @@ function SearchModal({ open, handleClose }) {
                     Search for Passage
                 </DialogTitle>
 
-                <Flex>
-                    <form className={classes.fullWidth}>
-                        <DialogContent>
-                            <SelectBook
-                                onChange={onChangeBook}
-                                value={formData.book}
-                                bookDetails={bookDetails}
+                <form className={classes.fullWidth}>
+                    <DialogContent>
+                        <SelectBook
+                            onChange={onChangeBook}
+                            value={formData.book}
+                            bookDetails={bookDetails}
+                        />
+                        {formData.book !== '' &&
+                            <SelectNumber
+                                label="Select Chapter"
+                                from={1}
+                                to={numberOfChapters}
+                                onChange={onChangeChapter}
+                                value={formData.chapter}
+                                required
                             />
-                            {formData.book !== '' &&
-                                <SelectNumber
-                                    label="Select Chapter"
-                                    from={1}
-                                    to={numberOfChapters}
-                                    onChange={onChangeChapter}
-                                    value={formData.chapter}
-                                    required
-                                />
-                            }
-                            {formData.chapter > 0 &&
-                                <SelectNumber
-                                    label="Select Verse"
-                                    from={1}
-                                    to={numberOfVerses}
-                                    onChange={onChangeVerseFrom}
-                                    value={formData.verseFrom}
-                                />
-                            }
-                            {formData.verseFrom > 0 && formData.verseFrom !== numberOfVerses &&
-                                <SelectNumber
-                                    label="Select Verse to finish on"
-                                    from={formData.verseFrom + 1}
-                                    to={numberOfVerses}
-                                    onChange={onChangeVerseTo}
-                                    value={formData.verseTo}
-                                />
-                            }
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleSubmit}>OK</Button>
-                            <Button onClick={handleCancel}>Cancel</Button>
-                        </DialogActions>
-                    </form>
-                </Flex>
+                        }
+                        {formData.chapter > 0 &&
+                            <SelectNumber
+                                label="Select Verse (optional)"
+                                from={1}
+                                to={numberOfVerses}
+                                onChange={onChangeVerseFrom}
+                                value={formData.verseFrom}
+                            />
+                        }
+                        {formData.verseFrom > 0 && formData.verseFrom !== numberOfVerses &&
+                            <SelectNumber
+                                label="Select Verse to finish on (optional)"
+                                from={formData.verseFrom + 1}
+                                to={numberOfVerses}
+                                onChange={onChangeVerseTo}
+                                value={formData.verseTo}
+                            />
+                        }
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={!formValidated}
+                        >OK</Button>
+                        <Button onClick={handleCancel}>Cancel</Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </div>
     )

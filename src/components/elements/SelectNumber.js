@@ -1,12 +1,16 @@
 import React from 'react'
+import classNames from 'classnames'
 import { FormControl, FormLabel, Select, makeStyles, Grow } from '@material-ui/core'
 
 const TRANSITION_TIMEOUT = 500
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
+        marginTop: theme.spacing(2)
     },
+    fullWidth: {
+        width: '100%'
+    }
 }))
 
 function* numberGenerator(from = 1, to) {
@@ -36,14 +40,14 @@ function SelectNumber({ label, onChange, required = false, from, to }) {
         <>
             <Grow in timeout={TRANSITION_TIMEOUT} >
                 <FormControl
-                    className={classes.root}
+                    className={classNames(classes.root, classes.fullWidth)}
                     required={required}
                 >
                     <FormLabel>
                         {label}
                     </FormLabel>
                     <Select
-                        className={classes.root}
+                        className={classes.fullWidth}
                         options={options}
                         fullWidth
                         native

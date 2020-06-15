@@ -2,9 +2,10 @@ import React, { useMemo } from 'react'
 
 import { FormControl, FormLabel, Select, makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        marginTop: theme.spacing(2)
     },
 }))
 
