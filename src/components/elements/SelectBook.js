@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { FormControl, FormLabel, Select, makeStyles } from '@material-ui/core'
+
+import bookDetails from 'data/bibleChaptersVerses.min.js'
+
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -8,9 +11,16 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-function SearchBook({ label, onChange }) {
+const getBookOptions = () => {
+    const bookOptions = bookDetails.map((detail) => <option value={detail.abbr}>{detail.book}</option>)
+    return [(<option value="" defaultChecked ></option>), ...bookOptions]
+}
+
+function SearchBook({ onChange }) {
 
     const classes = useStyles()
+
+    const bookOptions = useMemo(() => getBookOptions(), [])
 
     const onChangeSelect = (e) => {
         onChange(e.target.value)
@@ -20,7 +30,7 @@ function SearchBook({ label, onChange }) {
         <>
             <FormControl className={classes.root}>
                 <FormLabel>
-                    {label}
+                    Select Book
                 </FormLabel>
                 <Select
                     className={classes.root}
@@ -28,9 +38,7 @@ function SearchBook({ label, onChange }) {
                     native
                     onChange={onChangeSelect}
                 >
-                    <option>Genesis</option>
-                    <option>Exodus</option>
-                    <option>Leviticus</option>
+                    {bookOptions}
                 </Select>
             </FormControl>
         </>

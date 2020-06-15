@@ -42,7 +42,7 @@ function SearchModal({ open, handleClose }) {
                 <Flex>
                     <form className={classes.fullWidth}>
                         <DialogContent>
-                            <SelectBook label="" />
+                            <SelectBook />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleSubmit}>OK</Button>
