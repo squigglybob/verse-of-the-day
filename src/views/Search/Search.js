@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import API from 'api/API'
 import Flex from 'components/common/Flex'
 import VerseCard from 'components/Verse/VerseCard'
@@ -11,35 +11,49 @@ function Search({ bibleVersion, bibleDetails }) {
     const [loading, setLoading] = useState(true)
 
     const { searchString, searchType } = useParams()
-    const history = useHistory()
-    const { book, chapter, verseFrom, verseTo } = history.location.state
 
     const validSearchType = ['passage'].includes(searchType)
 
-    const bookFullName = bibleDetails[book].book
-    const passageTitle = `${bookFullName} ${chapter}${verseFrom > 0 ? ':' + verseFrom : ''}${verseTo > -1 ? '-'+ verseTo : ''}`
+
+    const searchParsed = searchString.match(/([1-9]?\s?[A-Z]\w+)(\d+):?(\d*)-?(\d*)/)
+
+    let passageTitle, book = undefined
+    if (!searchParsed) {
+        passageTitle = searchString
+    } else {
+        const [bookName, chapter, verseFrom, verseTo] = searchParsed.slice(1)
+        const bookFullName = bibleDetails[bookName] ? bibleDetails[bookName] : bookName
+        passageTitle = `${bookFullName} ${chapter}${verseFrom !== '' ? ':' + verseFrom : ''}${verseTo !== '' ? '-' + verseTo : ''}`
+        book = bookName
+    }
+
+    const isValidBook = typeof bibleDetails[book] !== 'undefined'
 
     useEffect(() => {
+        if (isValidBook) {
+            setError(`Invalid Book ${book}`)
+            return
+        }
         if (validSearchType) {
             API.getPassage(searchString, bibleVersion)
-            .then(res => {
-                setPassage(res.text)
-            })
-            .catch(error => {
-                setError(error.message)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+                .then(res => {
+                    setPassage(res.text)
+                })
+                .catch(error => {
+                    setError(error.message)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
         }
-    }, [searchString, validSearchType, bibleVersion])
+    }, [searchString, validSearchType, bibleVersion, book, isValidBook])
 
     if (!validSearchType) return <h1>Invalid url {searchType}</h1>
+
 
     return (
         <Flex>
             <div>
-                <h1>Search for </h1>
                 <VerseCard
                     title={`Search result`}
                     verseRef={passageTitle}

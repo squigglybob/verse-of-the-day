@@ -93,7 +93,7 @@ function SearchModal({ open, handleClose, bibleDetails }) {
     const handleSubmit = () => {
         handleClose()
         setFormData(INITIAL_FORM_DATA)
-        history.push(ROUTES.SEARCH + '/passage/' + formDataToPassage(formData), { ...formData })
+        history.push(ROUTES.SEARCH + '/passage/' + formDataToPassage(formData))
     }
 
     const formValidated = formData.book !== '' && formData.chapter > 0

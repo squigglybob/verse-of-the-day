@@ -38,7 +38,7 @@ function VerseCard({ verseOfTheDay, bibleVersion, verseRef, passage, title, load
                 }
             </CardContent>
             <CardActions>
-                <Button href={API.getReadMoreUrl(verseRef, bibleVersion)} disabled={loading || error}>
+                <Button href={API.getReadMoreUrl(verseRef, bibleVersion)} disabled={loading || typeof error !== 'undefined'}>
                     Read More
                 </Button>
             </CardActions>
