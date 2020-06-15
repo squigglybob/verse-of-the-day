@@ -31,12 +31,12 @@ function App() {
   const handleSearchClose = () => {
     setSearchOpen(false)
   }
-  
+
   return (
     <div className="App">
       <CssBaseline />
       <HeaderBar />
-      <Flex>
+      <Flex position='center'>
 
         <VerseOfTheDay />
 
