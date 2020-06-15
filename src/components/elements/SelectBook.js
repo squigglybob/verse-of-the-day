@@ -9,16 +9,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const getBookOptions = (bookDetails) => {
-    const bookOptions = bookDetails.map((detail) => <option key={detail.abbr} value={detail.abbr}>{detail.book}</option>)
+const getBookOptions = (bibleDetails) => {
+    const bookOptions = Object.entries(bibleDetails).map(([key, detail]) => <option key={detail.abbr} value={detail.abbr}>{detail.book}</option>)
     return [(<option key="default" value="" defaultChecked ></option>), ...bookOptions]
 }
 
-function SearchBook({ value, onChange, bookDetails }) {
+function SelectBook({ value, onChange, bibleDetails }) {
 
     const classes = useStyles()
 
-    const bookOptions = useMemo(() => getBookOptions(bookDetails), [bookDetails])
+    const bookOptions = useMemo(() => getBookOptions(bibleDetails), [bibleDetails])
 
     const onChangeSelect = (e) => {
         onChange(e.target.value)
@@ -47,4 +47,4 @@ function SearchBook({ value, onChange, bookDetails }) {
     )
 }
 
-export default SearchBook
+export default SelectBook

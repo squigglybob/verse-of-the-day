@@ -7,18 +7,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import SelectBook from 'components/elements/SelectBook'
 import SelectNumber from 'components/elements/SelectNumber'
 
-import bookDetails from 'data/bibleChaptersVerses.min.js'
 import * as ROUTES from 'constants/routes'
-
-function getBookDetailLookup() {
-    let bookDetailLookup = {}
-    bookDetails.forEach((book) => {
-        bookDetailLookup[book.abbr] = book
-    })
-    return bookDetailLookup
-}
-
-const bookDetailLookup = getBookDetailLookup()
 
 const useStyles = makeStyles(() => ({
     fullWidth: {
@@ -33,7 +22,7 @@ const INITIAL_FORM_DATA = {
     verseTo: -1,
 }
 
-function SearchModal({ open, handleClose }) {
+function SearchModal({ open, handleClose, bibleDetails }) {
 
     const classes = useStyles()
     const history = useHistory()
@@ -45,20 +34,20 @@ function SearchModal({ open, handleClose }) {
     // change number of chapters dependent on the book
     useEffect(() => {
         if (formData.book !== '') {
-            const bookLength = bookDetailLookup[formData.book].chapters.length
+            const bookLength = bibleDetails[formData.book].chapters.length
             setNumberOfChapters(bookLength)
         }
-    }, [formData.book])
+    }, [formData.book, bibleDetails])
 
     // change number of verses dependent on the chapter
     useEffect(() => {
         if (formData.book !== '' && formData.chapter > 0) {
-            const book = bookDetailLookup[formData.book]
+            const book = bibleDetails[formData.book]
             const chapter = book.chapters[formData.chapter - 1]
             const chapterLength = parseInt(chapter.verses)
             setNumberOfVerses(chapterLength)
         }
-    }, [formData.book, formData.chapter])
+    }, [formData.book, formData.chapter, bibleDetails])
 
     const onChangeBook = (value) => {
         setFormData({
@@ -129,7 +118,7 @@ function SearchModal({ open, handleClose }) {
                         <SelectBook
                             onChange={onChangeBook}
                             value={formData.book}
-                            bookDetails={bookDetails}
+                            bibleDetails={bibleDetails}
                         />
                         {formData.book !== '' &&
                             <SelectNumber

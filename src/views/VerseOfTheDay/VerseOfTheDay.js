@@ -4,9 +4,10 @@ import moment from 'moment'
 
 import verses from 'data/366verses.js'
 
-const BIBLE_VERSION = 'LEB'
+import API from 'api/API'
+import Flex from 'components/common/Flex'
 
-export default function VerseOfTheDay() {
+export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
 
     const [passage, setPassage] = useState("")
     const [dayOfYear, setDayOfYear] = useState(moment().dayOfYear())
@@ -14,54 +15,46 @@ export default function VerseOfTheDay() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-    const verseToPassageParam = (verseRef) => {
-        if (!verseRef) return null
-        return verseRef.replace(/\s/g, '')
-    }
-
     useEffect(() => {
         setLoading(true)
         setVerseRef(verses[dayOfYear - 1])
     }, [dayOfYear])
 
     useEffect(() => {
-        const passageParam = verseToPassageParam(verseRef)
-        const apiCall = `https://api.biblia.com/v1/bible/content/${BIBLE_VERSION}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
 
-        fetch(apiCall)
-            .then(res => {
-                if (!res.ok) throw new Error(res.statusText)
-                return res.json()
-            })
+        API.getPassage(verseRef, bibleVersion)
             .then(res => {
                 setPassage(res.text)
-                setLoading(false)
             })
             .catch((error) => {
                 setError(error.message)
+            })
+            .finally(() => {
                 setLoading(false)
             })
 
-    }, [verseRef])
+    }, [verseRef, bibleVersion])
 
     return (
-        <div>
-            <input
-                type="number"
-                min="1"
-                max="366"
-                value={dayOfYear}
-                onChange={(e) => { setDayOfYear(e.target.value) }}
-            />
-            <VerseCard
-                title="Verse of the Day"
-                verseRef={verseRef}
-                passage={passage}
-                bibleVersion={BIBLE_VERSION}
-                verseToPassageParam={verseToPassageParam}
-                loading={loading}
-                error={error}
-            />
-        </div>
+        <Flex position='center'>
+            <div>
+                <input
+                    type="number"
+                    min="1"
+                    max="366"
+                    value={dayOfYear}
+                    onChange={(e) => { setDayOfYear(e.target.value) }}
+                />
+                <VerseCard
+                    verseOfTheDay={true}
+                    title="Verse of the Day"
+                    verseRef={verseRef}
+                    passage={passage}
+                    bibleVersion={bibleVersion}
+                    loading={loading}
+                    error={error}
+                />
+            </div>
+        </Flex>
     )
 }

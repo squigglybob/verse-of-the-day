@@ -1,29 +1,41 @@
 import React, { useState } from 'react';
-import { 
+import {
   BrowserRouter as Router,
   Switch,
   Route,
- } from 'react-router-dom'
+} from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { Fab, makeStyles } from '@material-ui/core';
+import { Fab, makeStyles, Container } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
 
 import HeaderBar from 'components/common/HeaderBar'
-import Flex from 'components/common/Flex'
 import SearchModal from 'components/Search/SearchModal'
 import VerseOfTheDay from 'views/VerseOfTheDay/VerseOfTheDay';
 
 import * as ROUTES from 'constants/routes'
 import Search from 'views/Search/Search';
+import bibleData from 'data/bibleChaptersVerses.min.js'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
     zIndex: 1000
   }
 }))
+
+function getbookDetails() {
+  let bibleDetails = {}
+  bibleData.forEach((book) => {
+    bibleDetails[book.abbr] = book
+  })
+  return bibleDetails
+}
+
+const bibleDetails = getbookDetails()
+
+const BIBLE_VERSION = 'LEB'
 
 function App() {
 
@@ -44,20 +56,24 @@ function App() {
       <div className="App">
         <CssBaseline />
         <HeaderBar />
-        <Flex position='center'>
-  
-  
+
+        <Container>
           <Switch>
             <Route exact path={ROUTES.HOME}>
-              <VerseOfTheDay />
+              <VerseOfTheDay
+                bibleVersion={BIBLE_VERSION}
+                bibleDetails={bibleDetails}
+              />
             </Route>
             <Route path={ROUTES.SEARCH_WITH_PARAMS}>
-              <Search />
+              <Search
+                bibleVersion={BIBLE_VERSION}
+                bibleDetails={bibleDetails}
+              />
             </Route>
           </Switch>
-  
-        </Flex>
-  
+        </Container>
+
         <Fab
           size="medium"
           color="secondary"
@@ -67,8 +83,9 @@ function App() {
         >
           <SearchIcon />
         </Fab>
-  
+
         <SearchModal
+          bibleDetails={bibleDetails}
           open={searchOpen}
           handleClose={handleSearchClose}
         />

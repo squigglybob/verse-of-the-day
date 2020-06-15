@@ -1,18 +1,17 @@
 import React from 'react'
 import { Typography, Card, CardContent, Button, CardActions, makeStyles, CircularProgress } from '@material-ui/core'
 import moment from 'moment'
+import API from 'api/API'
+
 const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: `${7 / 8}rem`,
     }
 }))
 
-function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam, loading, error }) {
+function VerseCard({ verseOfTheDay, bibleVersion, verseRef, passage, title, loading, error }) {
 
     const classes = useStyles()
-
-    const getReadMoreUrl = (verseRef) =>
-        `https://biblia.com/books/${bibleVersion.toLowerCase()}/${verseToPassageParam(verseRef)}`
 
     return (
         <Card>
@@ -21,11 +20,11 @@ function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam
                     {title}
                 </Typography>
                 <Typography variant="h5" component="h2" gutterBottom>
-                    {moment().format('LL')}
+                    {verseOfTheDay ? moment().format('LL') : verseRef}
                 </Typography>
-                <Typography color="textSecondary" gutterBottom>
+                {verseOfTheDay && <Typography color="textSecondary" gutterBottom>
                     {verseRef}
-                </Typography>
+                </Typography>}
                 {loading ?
                     <CircularProgress /> :
                     <Typography variant="body1" component="p">
@@ -39,7 +38,7 @@ function VerseCard({ bibleVersion, verseRef, passage, title, verseToPassageParam
                 }
             </CardContent>
             <CardActions>
-                <Button href={getReadMoreUrl(verseRef)} disabled={loading || error}>
+                <Button href={API.getReadMoreUrl(verseRef, bibleVersion)} disabled={loading || error}>
                     Read More
                 </Button>
             </CardActions>
