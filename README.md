@@ -8,6 +8,12 @@
 
 ## Lessons learned
 
+How to mock functions
+How to wait for react elements to have changed before testing other things. (loading spinner)
+Once working, I found a bug :) win!
+The benefit was immediate as I could then refactor the Search component and know that things were working as they should,
+and also implement the fuzzy search changes to the Search component
+
 ## Time considerations
 
 ## Further Developments

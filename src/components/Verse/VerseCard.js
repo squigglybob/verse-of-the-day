@@ -9,8 +9,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function VerseCard({ verseOfTheDay, bibleVersion, verseRef, passage, title, loading, error }) {
+function VerseCard({ verseOfTheDay = false, bibleVersion, verseRef, passage, title, loading, error = null }) {
 
+    const disabled = loading || error !== null
+    
     const classes = useStyles()
 
     return (
@@ -19,26 +21,26 @@ function VerseCard({ verseOfTheDay, bibleVersion, verseRef, passage, title, load
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {title}
                 </Typography>
-                <Typography variant="h5" component="h2" gutterBottom>
+                <Typography variant="h5" component="h2" gutterBottom data-testid="verseCardTitle">
                     {verseOfTheDay ? moment().format('LL') : verseRef}
                 </Typography>
                 {verseOfTheDay && <Typography color="textSecondary" gutterBottom>
                     {verseRef}
                 </Typography>}
                 {loading ?
-                    <CircularProgress /> :
+                    <CircularProgress data-testid="loadingSpinner"/> :
                     <Typography variant="body1" component="p">
                         {passage}
                     </Typography>
                 }
                 {error &&
-                    <Typography variant="body1" component="p" color="error">
+                    <Typography variant="body1" component="p" color="error" data-testid="verseCardError">
                         Error: {error}
                     </Typography>
                 }
             </CardContent>
             <CardActions>
-                <Button href={API.getReadMoreUrl(verseRef, bibleVersion)} disabled={loading || typeof error !== 'undefined'}>
+                <Button href={API.getReadMoreUrl(verseRef, bibleVersion)} disabled={disabled} data-testid="verseCardReadMore">
                     Read More
                 </Button>
             </CardActions>
