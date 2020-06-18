@@ -6,6 +6,9 @@ import verses from 'data/366verses.js'
 
 import API from 'api/API'
 import Flex from 'components/common/Flex'
+import { Button } from '@material-ui/core'
+
+const DAYS_IN_A_YEAR = 366
 
 export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
 
@@ -38,13 +41,13 @@ export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
     return (
         <Flex position='center'>
             <div>
-                <input
+                {/* <input
                     type="number"
                     min="1"
                     max="366"
                     value={dayOfYear}
                     onChange={(e) => { setDayOfYear(e.target.value) }}
-                />
+                /> */}
                 <VerseCard
                     verseOfTheDay={true}
                     title="Verse of the Day"
@@ -54,6 +57,17 @@ export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
                     loading={loading}
                     error={error}
                 />
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                }}>
+                    <Button onClick={() => setDayOfYear(day => day > 1 ? day - 1 : DAYS_IN_A_YEAR)}>
+                        Previous
+                </Button>
+                    <Button onClick={() => { setDayOfYear(day => day < DAYS_IN_A_YEAR ? day + 1 : 1) }}>
+                        Next
+                </Button>
+                </div>
             </div>
         </Flex>
     )

@@ -58,7 +58,7 @@ function VerseCard({
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {title}
                 </Typography>
-                <Typography variant="h5" component="h2" gutterBottom data-testid="verseCardTitle">
+                <Typography variant="h5" component="h2" gutterBottom data-testid="verseCardTitle" color="primary">
                     {verseOfTheDay ? moment().format('LL') : verseRef}
                 </Typography>
                 {verseOfTheDay && <Typography color="textSecondary" gutterBottom>

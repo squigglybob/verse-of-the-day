@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { Fab, makeStyles, Container } from '@material-ui/core';
+import { Fab, makeStyles, Container, MuiThemeProvider } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
 
 import HeaderBar from 'components/common/HeaderBar'
@@ -16,6 +16,7 @@ import * as ROUTES from 'constants/routes'
 import Search from 'views/Search/Search';
 import bibleData from 'data/bibleChaptersVerses.min.js'
 import SearchPhrase from 'views/Search/SearchPhrase';
+import themeOverides from 'constants/theme';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -53,50 +54,52 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <CssBaseline />
-        <HeaderBar />
+    <MuiThemeProvider theme={themeOverides}>
+      <Router>
+        <div className="App">
+          <CssBaseline />
+          <HeaderBar />
 
-        <Container>
-          <Switch>
-            <Route exact path={ROUTES.HOME}>
-              <VerseOfTheDay
-                bibleVersion={BIBLE_VERSION}
-                bibleDetails={bibleDetails}
-              />
-            </Route>
-            <Route path={ROUTES.SEARCH_WITH_PARAMS}>
-              <Search
-                bibleVersion={BIBLE_VERSION}
-                bibleDetails={bibleDetails}
-              />
-            </Route>
-            <Route path={ROUTES.SEARCH_PHRASE_WITH_PARAMS}>
-              <SearchPhrase
-                bibleVersion={BIBLE_VERSION}
-              />
-            </Route>
-          </Switch>
-        </Container>
+          <Container>
+            <Switch>
+              <Route exact path={ROUTES.HOME}>
+                <VerseOfTheDay
+                  bibleVersion={BIBLE_VERSION}
+                  bibleDetails={bibleDetails}
+                />
+              </Route>
+              <Route path={ROUTES.SEARCH_WITH_PARAMS}>
+                <Search
+                  bibleVersion={BIBLE_VERSION}
+                  bibleDetails={bibleDetails}
+                />
+              </Route>
+              <Route path={ROUTES.SEARCH_PHRASE_WITH_PARAMS}>
+                <SearchPhrase
+                  bibleVersion={BIBLE_VERSION}
+                />
+              </Route>
+            </Switch>
+          </Container>
 
-                <Fab
-          size="medium"
-          color="secondary"
-          aria-label="search"
-          className={classes.fab}
-          onClick={handleSearchOpen}
-        >
-          <SearchIcon />
-        </Fab>
+          <Fab
+            size="medium"
+            color="secondary"
+            aria-label="search"
+            className={classes.fab}
+            onClick={handleSearchOpen}
+          >
+            <SearchIcon />
+          </Fab>
 
-        <SearchModal
-          bibleDetails={bibleDetails}
-          open={searchOpen}
-          handleClose={handleSearchClose}
-        />
-      </div>
-    </Router>
+          <SearchModal
+            bibleDetails={bibleDetails}
+            open={searchOpen}
+            handleClose={handleSearchClose}
+          />
+        </div>
+      </Router>
+    </MuiThemeProvider>
   );
 }
 
