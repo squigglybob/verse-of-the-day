@@ -6,12 +6,22 @@
 
 ## Local installation
 
-* set up ENV vars
-* install dependencies
+1. Clone this repository onto your local machine
+2. create a .env.development file in the root of the repo with `REACT_APP_BIBLIA_API_KEY=your_key_here`
+3. install npm dependencies with `npm i`
+4. type `npm start` to start a local development server
+5. Navigate to the development server address and enjoy.
+
+## Time Spent on the project
+
+20 hours 7 minutes
 
 ## Design Decisions
 
-2 forms consideration.
+I wanted to include two ways of searching by passage and also by word or phrase.
+
+Initially I thought of having 2 seperate dialogues but quickly realised that I could 
+
 To put in one route with a param or have 2 distinct routes
 To have one modal or 2?
 to use Dialog components in form (i'd rather abstract out but for now is ok, but is less flexible)
