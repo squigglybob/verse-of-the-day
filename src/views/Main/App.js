@@ -65,7 +65,6 @@ function App() {
               <Route exact path={ROUTES.HOME}>
                 <VerseOfTheDay
                   bibleVersion={BIBLE_VERSION}
-                  bibleDetails={bibleDetails}
                 />
               </Route>
               <Route path={ROUTES.SEARCH_WITH_PARAMS}>

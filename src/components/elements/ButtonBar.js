@@ -34,6 +34,7 @@ function ButtonBar({ buttonDetails, defaultValue = '' }) {
                         aria-label={text}
                         onClick={onClick}
                         key={text}
+                        color='primary'
                     >
                         {text}
                     </ToggleButton>

@@ -34,7 +34,7 @@ function Search({ bibleVersion, bibleDetails }) {
 
     return (
         <Flex>
-            <div>
+            <div style={{ marginTop: '32px'}}>
                 <VerseCard
                     title='Search result'
                     verseRef={passageTitle}

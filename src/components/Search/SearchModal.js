@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Dialog, IconButton, DialogTitle, makeStyles } from '@material-ui/core'
+import { Dialog, IconButton, DialogTitle, makeStyles, useTheme, useMediaQuery } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import SearchPassageForm from './SearchPassageForm'
 import ButtonBar from 'components/elements/ButtonBar'
@@ -21,7 +21,9 @@ function SearchModal({ open, handleClose, bibleDetails }) {
     const classes = useStyles()
 
     const [searchBy, setSearchBy] = useState(DEFAULT_SEARCHBY)
+    const theme = useTheme()
 
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const searchByOptions = {
         'passage': {
             'text': 'passage',
@@ -36,10 +38,12 @@ function SearchModal({ open, handleClose, bibleDetails }) {
     return (
         <div>
             <Dialog
-                fullScreen
                 open={open}
                 onClose={handleClose}
                 keepMounted
+                fullScreen={fullScreen}
+                maxWidth='sm'
+                fullWidth={true}
             >
                 <IconButton
                     onClick={handleClose}

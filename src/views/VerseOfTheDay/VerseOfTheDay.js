@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core'
 
 const DAYS_IN_A_YEAR = 366
 
-export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
+export default function VerseOfTheDay({ bibleVersion }) {
 
     const [passage, setPassage] = useState("")
     const [dayOfYear, setDayOfYear] = useState(moment().dayOfYear())
@@ -41,13 +41,6 @@ export default function VerseOfTheDay({ bibleVersion, bibleDetails }) {
     return (
         <Flex position='center'>
             <div>
-                {/* <input
-                    type="number"
-                    min="1"
-                    max="366"
-                    value={dayOfYear}
-                    onChange={(e) => { setDayOfYear(e.target.value) }}
-                /> */}
                 <VerseCard
                     verseOfTheDay={true}
                     title="Verse of the Day"
