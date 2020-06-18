@@ -18,21 +18,26 @@
 
 ## Design Decisions
 
-I wanted to include two ways of searching by passage and also by word or phrase.
+I wanted to include two ways of searching by passage and also by word or phrase, so initially I thought of having 2 seperate dialogues triggered by a speed dial, floating action button, but when I tried it out, it didn't feel good from a user flow perspective. Better would be to have 1 dialogue with the ability to switch between 2 search forms.
 
-Initially I thought of having 2 seperate dialogues but quickly realised that I could 
+For the search routes, initially I planned to have them go to 1 route /search with 2 parameters, one to determine the type of search (passage/phrase) and the second containing the search string.
 
-To put in one route with a param or have 2 distinct routes
-To have one modal or 2?
-to use Dialog components in form (i'd rather abstract out but for now is ok, but is less flexible)
+I chose to divide that into 2 hardcoded routes /search/passage and /search/phrase so that the SearchComponent would not be multi purpose.  Having just thought about it now though, I could have had one route with 2 parameters as originally thought, and have 2 seperate sub components display depending on whether it was a passage or a phrase search. This might be better in the long run if further search types were created as less would have to be done with the routing due to being a bit more general. But there are tradeoffs.
+
+Something I am not quite happy about at the moment is having Dialogue specific components within the SearchForm components as this ties the form to being within a Dialogue. This is currently like this in order to best leverage Material UI's built in styling for content and button areas. But in the future this could be abstracted out, so that the parent component of the form passes in the wrapper components for the
 
 ## Lessons learned
 
-Distilling possibilities down to minimal tests.
+Distilling possibilities of tests down to minimal tests.
+
 How to mock functions
+
 How to wait for react elements to have changed before testing other things. (loading spinner)
+
 Once working, I found a bug :) win!
+
 The benefit was immediate as I could then refactor the Search component and know that things were working as they should,
+
 and also implement the fuzzy search changes to the Search component.
 
 Don't mess around with git without being very thorough and careful ;) :-/
@@ -44,7 +49,18 @@ testing was needed, as I need to grow in this and I know the benefits, so went t
 ## Further Developments
 
 Filter for search by phrase (order by relevance, passage order, how many per fetch)
+
 Change bible version (stored in global context "store")
+
+Refactor the API module to create query urls programmatically
+
+404 page (meant to get that in there before the end, sorry)
+
+Better styling
+
+Psalms don't seem to be getting well :( 
+
+If there is an error on passage search, I forgot to turn it off afterwards :(
 
 ## The Dev Environment
 
