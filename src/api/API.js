@@ -37,9 +37,9 @@ const getPassage = (verseRef, bibleVersion) => {
         })
 }
 
-const getSearchResults = (phrase, bibleVersion) => {
+const getSearchResults = ({phrase, bibleVersion, start, limit}) => {
 
-    const apiCall = `https://api.biblia.com/v1/bible/search/${bibleVersion}.json?query=${phrase}&key=${process.env.REACT_APP_BIBLIA_API_KEY}&mode=verse`
+    const apiCall = `https://api.biblia.com/v1/bible/search/${bibleVersion}.json?query=${phrase}&key=${process.env.REACT_APP_BIBLIA_API_KEY}&mode=verse&start=${start}&limit=${limit}`
     return fetch(apiCall)
         .then(res => {
             if (!res.ok) throw new Error(res.statusText)

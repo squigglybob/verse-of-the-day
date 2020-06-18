@@ -75,7 +75,6 @@ function App() {
             <Route path={ROUTES.SEARCH_PHRASE_WITH_PARAMS}>
               <SearchPhrase
                 bibleVersion={BIBLE_VERSION}
-                bibleDetails={bibleDetails}
               />
             </Route>
           </Switch>

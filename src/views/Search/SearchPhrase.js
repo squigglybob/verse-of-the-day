@@ -5,26 +5,47 @@ import API from 'api/API'
 import {
     CircularProgress,
     Typography,
+    Button,
+    makeStyles,
 } from '@material-ui/core'
 import VerseCard from 'components/Verse/VerseCard'
 
+const useStyles = makeStyles((theme) => ({
+    error: {
+        color: 'red',
+    },
+    readMore: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
+    }
+}))
+
+const RESULTS_PER_PAGE = 10
 function SearchPhrase({
     bibleVersion,
-    bibleDetails,
 }) {
 
     const [results, setResults] = useState([])
     const [totalResults, setTotalResults] = useState(-1)
     const [loading, setLoading] = useState(true)
+    const [loadingMoreResults, setLoadingMoreResults] = useState(false)
     const [error, setError] = useState(null)
+    const [moreResultsError, setMoreResultsError] = useState(null)
+    const [start, setStart] = useState(0)
 
     const { searchString } = useParams()
+    const classes = useStyles()
+
+    const loadingMore = start > 0
 
     useEffect(() => {
 
-        API.getSearchResults(searchString, bibleVersion)
+        if (loadingMore) return
+        API.getSearchResults({ phrase: searchString, bibleVersion, start, limit: RESULTS_PER_PAGE })
             .then((res) => {
-                setResults(res.results)
+                setResults(oldResults => (res.results))
                 setTotalResults(res.resultCount)
             })
             .catch((error) => {
@@ -34,7 +55,31 @@ function SearchPhrase({
                 setLoading(false)
             })
 
-    }, [searchString, bibleVersion])
+    }, [searchString, bibleVersion, start, loadingMore])
+
+    const getMoreResults = () => {
+        setLoadingMoreResults(true)
+        const newStart = start + RESULTS_PER_PAGE
+        API.getSearchResults({
+            phrase: searchString,
+            bibleVersion,
+            start: newStart,
+            limit: RESULTS_PER_PAGE
+        })
+            .then((res) => {
+                setResults([
+                    ...results,
+                    ...res.results,
+                ])
+                setStart(newStart)
+            })
+            .catch((error) => {
+                setMoreResultsError(error.message)
+            })
+            .finally(() => {
+                setLoadingMoreResults(false)
+            })
+    }
 
     if (loading) return (
         <Flex>
@@ -74,7 +119,7 @@ function SearchPhrase({
                     variant="h5"
                     component="h2"
                 >
-                    {totalResults} Result{totalResults > 1 ? 's' : ''} for {searchString}
+                    {totalResults > 0 ? totalResults : 'Lots of'} Result{totalResults !== 1 ? 's' : ''} for {searchString}
                 </Typography>
                 {results && results.length > 0 && (
                     results.map(({ title, preview }, i) => (
@@ -88,6 +133,21 @@ function SearchPhrase({
                         />
                     ))
                 )}
+                {moreResultsError && (
+                    <p className={classes.error}>
+                        {moreResultsError}
+                    </p>
+                )}
+
+                <div className={classes.readMore}>
+                    <Button
+                        onClick={getMoreResults}
+                        disabled={loadingMoreResults}
+                    >
+                        Get more Results
+                    </Button>
+                    {loadingMoreResults && <CircularProgress />}
+                </div>
             </div>
         </Flex>
     )

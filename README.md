@@ -25,11 +25,16 @@ Once working, I found a bug :) win!
 The benefit was immediate as I could then refactor the Search component and know that things were working as they should,
 and also implement the fuzzy search changes to the Search component.
 
+Don't mess around with git without being very thorough and careful ;) :-/
+
 ## Time considerations
 
 testing was needed, as I need to grow in this and I know the benefits, so went through the pain of the learning process
 
 ## Further Developments
+
+Filter for search by phrase (order by relevance, passage order, how many per fetch)
+Change bible version (stored in global context "store")
 
 ## The Dev Environment
 
