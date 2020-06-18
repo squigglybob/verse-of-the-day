@@ -4,6 +4,11 @@
 
 [Dev Project Test](https://onesheep.org/developer-project-test)
 
+## Local installation
+
+* set up ENV vars
+* install dependencies
+
 ## Design Decisions
 
 2 forms consideration.
@@ -23,7 +28,6 @@ and also implement the fuzzy search changes to the Search component.
 ## Time considerations
 
 testing was needed, as I need to grow in this and I know the benefits, so went through the pain of the learning process
-
 
 ## Further Developments
 

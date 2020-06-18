@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { DialogContent, DialogActions, Button } from '@material-ui/core'
 import InputText from 'components/elements/InputText'
 import { useHistory } from 'react-router-dom'
@@ -28,7 +28,8 @@ function SearchPhraseForm({
 
     const handleSubmit = () => {
         setFormData(INITIAL_FORM_DATA)
-        history.push(ROUTES.SEARCH)    
+        handleClose()
+        history.push(ROUTES.SEARCH_PHRASE + '/' + formData.phrase)    
     }
 
     const handleCancel = () => {
@@ -36,7 +37,7 @@ function SearchPhraseForm({
         handleClose()
     }
 
-    const formValidated = false
+    const formValidated = formData.phrase !== ''
 
     return (
         <>

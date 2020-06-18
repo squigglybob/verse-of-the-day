@@ -93,7 +93,7 @@ function SearchPassageForm({
         const handleSubmit = () => {
             handleClose()
             setFormData(INITIAL_FORM_DATA)
-            history.push(ROUTES.SEARCH + '/passage/' + formDataToPassage(formData))
+            history.push(ROUTES.SEARCH + '/' + formDataToPassage(formData))
         }
     
         const formValidated = formData.book !== '' && formData.chapter > 0

@@ -10,9 +10,7 @@ function Search({ bibleVersion, bibleDetails }) {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const { searchString, searchType } = useParams()
-
-    const validSearchType = ['passage'].includes(searchType)
+    const { searchString } = useParams()
 
     const { passageTitle, book, isValidBook } = API.parseBibleRef(searchString, bibleDetails)
 
@@ -22,7 +20,6 @@ function Search({ bibleVersion, bibleDetails }) {
             setLoading(false)
             return
         }
-        if (validSearchType) {
             API.getPassage(searchString, bibleVersion)
                 .then(res => {
                     setPassage(res.text)
@@ -33,11 +30,7 @@ function Search({ bibleVersion, bibleDetails }) {
                 .finally(() => {
                     setLoading(false)
                 })
-        }
-    }, [searchString, validSearchType, bibleVersion, book, isValidBook])
-
-    if (!validSearchType) return <h1>Invalid url {searchType}</h1>
-
+    }, [searchString, bibleVersion, book, isValidBook])
 
     return (
         <Flex>

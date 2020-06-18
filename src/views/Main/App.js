@@ -15,6 +15,7 @@ import VerseOfTheDay from 'views/VerseOfTheDay/VerseOfTheDay';
 import * as ROUTES from 'constants/routes'
 import Search from 'views/Search/Search';
 import bibleData from 'data/bibleChaptersVerses.min.js'
+import SearchPhrase from 'views/Search/SearchPhrase';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -67,6 +68,12 @@ function App() {
             </Route>
             <Route path={ROUTES.SEARCH_WITH_PARAMS}>
               <Search
+                bibleVersion={BIBLE_VERSION}
+                bibleDetails={bibleDetails}
+              />
+            </Route>
+            <Route path={ROUTES.SEARCH_PHRASE_WITH_PARAMS}>
+              <SearchPhrase
                 bibleVersion={BIBLE_VERSION}
                 bibleDetails={bibleDetails}
               />

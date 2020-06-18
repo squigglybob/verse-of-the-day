@@ -31,7 +31,7 @@ function InputText({
                 className={classes.root}
                 placeholder={placeholder}
                 value={value}
-                onChange={onChange}
+                onChange={(e) => {onChange(e.target.value)}}
             />
         </FormControl>
     )
