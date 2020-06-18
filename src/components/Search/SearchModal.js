@@ -4,6 +4,7 @@ import { Dialog, IconButton, DialogTitle, makeStyles } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import SearchPassageForm from './SearchPassageForm'
 import ButtonBar from 'components/elements/ButtonBar'
+import SearchPhraseForm from './SearchPhraseForm'
 
 
 
@@ -63,7 +64,10 @@ function SearchModal({ open, handleClose, bibleDetails }) {
                     />
                 }
                 {searchBy === 'phrase' &&
-                    <p>Phrase searh form here</p>
+                    <SearchPhraseForm
+                        bibleDetails={bibleDetails}
+                        handleClose={handleClose}
+                    />
                 }
             </Dialog>
         </div>
