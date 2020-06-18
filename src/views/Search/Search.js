@@ -14,19 +14,7 @@ function Search({ bibleVersion, bibleDetails }) {
 
     const validSearchType = ['passage'].includes(searchType)
 
-    const searchParsed = searchString.match(/([1-9]?\s?[A-Z]\w+)(\d+):?(\d*)-?(\d*)/)
-
-    let passageTitle, book = undefined
-    if (!searchParsed) {
-        passageTitle = searchString
-    } else {
-        const [bookName, chapter, verseFrom, verseTo] = searchParsed.slice(1)
-        const bookFullName = bibleDetails[bookName] ? bibleDetails[bookName].book : bookName
-        passageTitle = `${bookFullName} ${chapter}${verseFrom !== '' ? ':' + verseFrom : ''}${verseTo !== '' ? '-' + verseTo : ''}`
-        book = bookName
-    }
-
-    const isValidBook = typeof bibleDetails[book] !== 'undefined'
+    const { passageTitle, book, isValidBook } = API.parseBibleRef(searchString, bibleDetails)
 
     useEffect(() => {
         if (!isValidBook) {
