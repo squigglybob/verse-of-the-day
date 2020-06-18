@@ -4,6 +4,9 @@ import moment from 'moment'
 import API from 'api/API'
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        marginBottom: theme.spacing(2),
+    },
     title: {
         fontSize: `${7 / 8}rem`,
     }
@@ -16,7 +19,7 @@ function VerseCard({ verseOfTheDay = false, bibleVersion, verseRef, passage, tit
     const classes = useStyles()
 
     return (
-        <Card>
+        <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {title}

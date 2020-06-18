@@ -38,16 +38,13 @@ const getPassage = (verseRef, bibleVersion) => {
 }
 
 const getSearchResults = (phrase, bibleVersion) => {
-    const phraseForUrl = phrase.replace(/^(\s*)/, '')
-    .replace(/(\s*)$/, '')
-    .replace(/\s*/g, '+')
 
-    const apiCall = `https://api.biblia.com/v1/bible/search/${bibleVersion}.json?query=${phraseForUrl}&key=${process.env.REACT_APP_BIBLIA_API_KEY}&mode=verse`
-    fetch(apiCall)
-    .then(res => {
-        console.log(res)
-        return res.json()
-    })
+    const apiCall = `https://api.biblia.com/v1/bible/search/${bibleVersion}.json?query=${phrase}&key=${process.env.REACT_APP_BIBLIA_API_KEY}&mode=verse`
+    return fetch(apiCall)
+        .then(res => {
+            if (!res.ok) throw new Error(res.statusText)
+            return res.json()
+        })
 }
 
 export default {

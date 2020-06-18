@@ -38,7 +38,7 @@ function SearchPhraseForm({
     }
 
     const formValidated = formData.phrase !== ''
-
+ 
     return (
         <>
             <form>
