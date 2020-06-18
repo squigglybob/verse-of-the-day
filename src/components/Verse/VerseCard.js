@@ -46,7 +46,11 @@ function VerseCard({
         }
     }
 
-    const htmlToDisplay = highlightWords.length === 0 ? passage : highlight(passage, highlightWords)
+    const passageToHTML = (text) => ({
+        __html: `<p>${passage}</p>`,
+    })
+
+    const htmlToDisplay = highlightWords.length === 0 ? passageToHTML(passage) : highlight(passage, highlightWords)
 
     return (
         <Card className={classes.root}>
