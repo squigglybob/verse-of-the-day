@@ -9,14 +9,44 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontSize: `${7 / 8}rem`,
+    },
+    highlight: {
+        backgroundColor: 'yellow',
     }
 }))
 
-function VerseCard({ verseOfTheDay = false, bibleVersion, verseRef, passage, title, loading, error = null }) {
+function VerseCard({
+    verseOfTheDay = false,
+    bibleVersion,
+    verseRef,
+    passage,
+    title,
+    loading,
+    error = null,
+    highlightWords = []
+}) {
 
     const disabled = loading || error !== null
-    
+
     const classes = useStyles()
+
+    const highlight = (text, words) => {
+        const regexes = words.map((word) => ({
+            word,
+            regex: new RegExp(word, 'gi')
+        }))
+
+        let highlightedHTML = `<p>${text}<p>`
+        regexes.forEach(({ word, regex }) => {
+            highlightedHTML = highlightedHTML.replace(regex, `<span class="${classes.highlight}">${word}</span>`)
+        })
+
+        return {
+            __html: highlightedHTML
+        }
+    }
+
+    const htmlToDisplay = highlightWords.length === 0 ? passage : highlight(passage, highlightWords)
 
     return (
         <Card className={classes.root}>
@@ -31,10 +61,8 @@ function VerseCard({ verseOfTheDay = false, bibleVersion, verseRef, passage, tit
                     {verseRef}
                 </Typography>}
                 {loading ?
-                    <CircularProgress data-testid="loadingSpinner"/> :
-                    <Typography variant="body1" component="p">
-                        {passage}
-                    </Typography>
+                    <CircularProgress data-testid="loadingSpinner" /> :
+                    <Typography variant="body1" component="p" dangerouslySetInnerHTML={htmlToDisplay} />
                 }
                 {error &&
                     <Typography variant="body1" component="p" color="error" data-testid="verseCardError">

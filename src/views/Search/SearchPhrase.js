@@ -36,6 +36,9 @@ function SearchPhrase({
     const [start, setStart] = useState(0)
 
     const { searchString } = useParams()
+
+    const searchedWords = searchString.split(' ')
+
     const classes = useStyles()
 
     const loadingMore = start > 0
@@ -130,6 +133,7 @@ function SearchPhrase({
                             passage={preview}
                             loading={false}
                             bibleVersion={bibleVersion}
+                            highlightWords={searchedWords}
                         />
                     ))
                 )}
