@@ -27,9 +27,9 @@ const getReadMoreUrl = (verseRef, bibleVersion) =>
     `https://biblia.com/books/${bibleVersion.toLowerCase()}/${verseToPassageParam(verseRef)}`
 
 
-const getPassage = (verseRef, BIBLE_VERSION) => {
+const getPassage = (verseRef, bibleVersion) => {
     const passageParam = verseToPassageParam(verseRef)
-    const apiCall = `https://api.biblia.com/v1/bible/content/${BIBLE_VERSION}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
+    const apiCall = `https://api.biblia.com/v1/bible/content/${bibleVersion}.json?passage=${passageParam}&key=${process.env.REACT_APP_BIBLIA_API_KEY}`
     return fetch(apiCall)
         .then(res => {
             if (!res.ok) throw new Error(res.statusText)
@@ -37,9 +37,23 @@ const getPassage = (verseRef, BIBLE_VERSION) => {
         })
 }
 
+const getSearchResults = (phrase, bibleVersion) => {
+    const phraseForUrl = phrase.replace(/^(\s*)/, '')
+    .replace(/(\s*)$/, '')
+    .replace(/\s*/g, '+')
+
+    const apiCall = `https://api.biblia.com/v1/bible/search/${bibleVersion}.json?query=${phraseForUrl}&key=${process.env.REACT_APP_BIBLIA_API_KEY}&mode=verse`
+    fetch(apiCall)
+    .then(res => {
+        console.log(res)
+        return res.json()
+    })
+}
+
 export default {
     verseToPassageParam,
     parseBibleRef,
     getPassage,
     getReadMoreUrl,
+    getSearchResults,
 }

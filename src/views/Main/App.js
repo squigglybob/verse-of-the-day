@@ -17,7 +17,7 @@ import Search from 'views/Search/Search';
 import bibleData from 'data/bibleChaptersVerses.min.js'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  fab: {
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
@@ -74,11 +74,11 @@ function App() {
           </Switch>
         </Container>
 
-        <Fab
+                <Fab
           size="medium"
           color="secondary"
           aria-label="search"
-          className={classes.root}
+          className={classes.fab}
           onClick={handleSearchOpen}
         >
           <SearchIcon />

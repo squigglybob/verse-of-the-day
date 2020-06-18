@@ -4,7 +4,12 @@
 
 [Dev Project Test](https://onesheep.org/developer-project-test)
 
-## My approach
+## Design Decisions
+
+2 forms consideration.
+To put in one route with a param or have 2 distinct routes
+To have one modal or 2?
+to use Dialog components in form (i'd rather abstract out but for now is ok, but is less flexible)
 
 ## Lessons learned
 
@@ -16,6 +21,9 @@ The benefit was immediate as I could then refactor the Search component and know
 and also implement the fuzzy search changes to the Search component.
 
 ## Time considerations
+
+testing was needed, as I need to grow in this and I know the benefits, so went through the pain of the learning process
+
 
 ## Further Developments
 
