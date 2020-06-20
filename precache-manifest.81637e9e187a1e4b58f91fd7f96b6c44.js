@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e026dcf9e5cdd8d77a2717573c9ab84d",
+    "revision": "9374e1bd33bc78702d5e4be90d7cb17d",
     "url": "/verse-of-the-day/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/verse-of-the-day/static/js/2.0b838182.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e851825a60c88f7d5ea6",
-    "url": "/verse-of-the-day/static/js/main.db1b21a9.chunk.js"
+    "revision": "d904acf65a3ca5e48d28",
+    "url": "/verse-of-the-day/static/js/main.cad8b78d.chunk.js"
   },
   {
     "revision": "94e8291c32dedb1f066c",
