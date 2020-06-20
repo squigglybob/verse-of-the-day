@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[Live Demo](https://squigglybob.github.io/)
+[Live Demo](https://squigglybob.github.io/verse-of-the-day)
 
 ## Local installation
 
