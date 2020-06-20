@@ -46,9 +46,10 @@ function SearchPhrase({
     useEffect(() => {
 
         if (loadingMore) return
+        setError(null)
         API.getSearchResults({ phrase: searchString, bibleVersion, start, limit: RESULTS_PER_PAGE })
             .then((res) => {
-                setResults(oldResults => (res.results))
+                setResults(res.results)
                 setTotalResults(res.resultCount)
             })
             .catch((error) => {
@@ -62,6 +63,7 @@ function SearchPhrase({
 
     const getMoreResults = () => {
         setLoadingMoreResults(true)
+        setError(null)
         const newStart = start + RESULTS_PER_PAGE
         API.getSearchResults({
             phrase: searchString,

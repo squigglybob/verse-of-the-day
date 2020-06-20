@@ -15,26 +15,27 @@ function Search({ bibleVersion, bibleDetails }) {
     const { passageTitle, book, isValidBook } = API.parseBibleRef(searchString, bibleDetails)
 
     useEffect(() => {
-        if (!isValidBook) {
+        if (isValidBook === false) {
             setError(`Invalid Book ${book}`)
             setLoading(false)
             return
         }
-            API.getPassage(searchString, bibleVersion)
-                .then(res => {
-                    setPassage(res.text)
-                })
-                .catch(error => {
-                    setError(error.message)
-                })
-                .finally(() => {
-                    setLoading(false)
-                })
+        setError(null)
+        API.getPassage(searchString, bibleVersion)
+            .then(res => {
+                setPassage(res.text)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }, [searchString, bibleVersion, book, isValidBook])
 
     return (
         <Flex>
-            <div style={{ marginTop: '32px'}}>
+            <div style={{ marginTop: '32px' }}>
                 <VerseCard
                     title='Search result'
                     verseRef={passageTitle}
