@@ -1,6 +1,7 @@
 {
   "name": "verse-of-the-day",
   "version": "0.1.0",
+  "homepage": "https://squigglybob.github.io/verse-of-the-day/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.2",
