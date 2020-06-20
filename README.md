@@ -4,6 +4,10 @@
 
 [Dev Project Test](https://onesheep.org/developer-project-test)
 
+## Live Demo
+
+[Live Demo](https://squigglybob.github.io/)
+
 ## Local installation
 
 1. Clone this repository onto your local machine
