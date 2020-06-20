@@ -6,7 +6,7 @@ const verseToPassageParam = (verseRef) => {
 const parseBibleRef = (string, bibleDetails) => {
 
     let passageTitle, book = undefined
-    const searchParsed = string.match(/([1-9]?\s?[A-Z]\w+)(\d+):?(\d*)-?(\d*)/)
+    const searchParsed = string.match(/([1-9]?\s?[A-Z][a-z]+)(\d+):?(\d*)-?(\d*)/)
 
     if (!searchParsed) {
         passageTitle = string
