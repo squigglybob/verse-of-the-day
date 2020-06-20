@@ -29,7 +29,7 @@ function SearchPhraseForm({
     const handleSubmit = () => {
         setFormData(INITIAL_FORM_DATA)
         handleClose()
-        history.push(ROUTES.SEARCH_PHRASE + '/' + formData.phrase)    
+        history.push(ROUTES.SEARCH_PHRASE + '/' + formData.phrase)
     }
 
     const handleCancel = () => {
@@ -38,10 +38,10 @@ function SearchPhraseForm({
     }
 
     const formValidated = formData.phrase !== ''
- 
+
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <DialogContent>
                     <InputText
                         label='Search words'
@@ -52,7 +52,7 @@ function SearchPhraseForm({
                 </DialogContent>
                 <DialogActions>
                     <Button
-                        onClick={handleSubmit}
+                        type="submit"
                         disabled={!formValidated}
                     >OK</Button>
                     <Button onClick={handleCancel}>Cancel</Button>

@@ -33,8 +33,10 @@ function VerseCard({
     const highlight = (text, words) => {
         const regexes = words.map((word) => ({
             word,
-            regex: new RegExp(word, 'gi')
+            regex: new RegExp(`\\b${word}\\b`, 'gi')
         }))
+
+        console.log(regexes)
 
         let highlightedHTML = `<p>${text}<p>`
         regexes.forEach(({ word, regex }) => {

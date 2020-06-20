@@ -100,7 +100,7 @@ function SearchPassageForm({
     
     return (
         <>
-            <form className={classes.fullWidth}>
+            <form className={classes.fullWidth} onSubmit={handleSubmit}>
                     <DialogContent>
                         <SelectBook
                             onChange={onChangeBook}
@@ -138,7 +138,7 @@ function SearchPassageForm({
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            onClick={handleSubmit}
+                            type="submit"
                             disabled={!formValidated}
                         >OK</Button>
                         <Button onClick={handleCancel}>Cancel</Button>
