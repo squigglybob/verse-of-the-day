@@ -1,7 +1,7 @@
 {
   "name": "verse-of-the-day",
   "version": "0.1.0",
-  "homepage": "https://squigglybob.github.io/verse-of-the-day/",
+  "homepage": "https://verse-of-the-day-452a4.web.app/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.2",
@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build -e verse-of-the-day"
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

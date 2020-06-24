@@ -6,7 +6,13 @@
 
 ## Live Demo
 
-[Live Demo](https://squigglybob.github.io/verse-of-the-day)
+[Live Demo](https://verse-of-the-day-452a4.web.app/)
+
+I have tried using github pages for hosting this, but there are some strange things that you have to do to get a one page React app to work in a subdirectory.
+
+So instead I have gone for using Firebase which was much simpler to set up.
+
+However there is a double load that doesn't happen when running locally that I haven't had time to look into as yet.
 
 ## Local installation
 
