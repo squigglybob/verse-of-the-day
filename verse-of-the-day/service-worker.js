@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/verse-of-the-day/precache-manifest.bee8c2358f47341941ca21d96f4c2917.js"
+  "/verse-of-the-day/precache-manifest.062008a62cc38e66daad51921d0e051c.js"
 );
 
 self.addEventListener('message', (event) => {
