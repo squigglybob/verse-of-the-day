@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/verse-of-the-day/static/js/main.e752f756.chunk.js",
+    "main.js.map": "/verse-of-the-day/static/js/main.e752f756.chunk.js.map",
+    "runtime-main.js": "/verse-of-the-day/static/js/runtime-main.41ad3585.js",
+    "runtime-main.js.map": "/verse-of-the-day/static/js/runtime-main.41ad3585.js.map",
+    "static/js/2.0b838182.chunk.js": "/verse-of-the-day/static/js/2.0b838182.chunk.js",
+    "static/js/2.0b838182.chunk.js.map": "/verse-of-the-day/static/js/2.0b838182.chunk.js.map",
+    "index.html": "/verse-of-the-day/index.html",
+    "precache-manifest.bee8c2358f47341941ca21d96f4c2917.js": "/verse-of-the-day/precache-manifest.bee8c2358f47341941ca21d96f4c2917.js",
+    "service-worker.js": "/verse-of-the-day/service-worker.js",
+    "static/js/2.0b838182.chunk.js.LICENSE.txt": "/verse-of-the-day/static/js/2.0b838182.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.41ad3585.js",
+    "static/js/2.0b838182.chunk.js",
+    "static/js/main.e752f756.chunk.js"
+  ]
+}
