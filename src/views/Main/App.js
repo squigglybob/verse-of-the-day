@@ -5,18 +5,23 @@ import {
   Route,
 } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { Fab, makeStyles, Container, MuiThemeProvider } from '@material-ui/core';
+import {
+  Fab,
+  makeStyles,
+  Container,
+  MuiThemeProvider
+} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
 
 import HeaderBar from 'components/common/HeaderBar'
 import SearchModal from 'components/Search/SearchModal'
 import VerseOfTheDay from 'views/VerseOfTheDay/VerseOfTheDay';
-
-import * as ROUTES from 'constants/routes'
 import Search from 'views/Search/Search';
 import bibleData from 'data/bibleChaptersVerses.min.js'
 import SearchPhrase from 'views/Search/SearchPhrase';
+
 import themeOverides from 'constants/theme';
+import * as ROUTES from 'constants/routes'
 
 const useStyles = makeStyles((theme) => ({
   fab: {

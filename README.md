@@ -44,27 +44,53 @@ The benefit was immediate as I could then refactor the Search component and know
 
 and also implement the fuzzy search changes to the Search component.
 
-Don't mess around with git without being very thorough and careful ;) :-/
+Don't mess around with git without being very thorough and careful ;O) :O/
 
 ## Time considerations
 
-testing was needed, as I need to grow in this and I know the benefits, so went through the pain of the learning process
+3 hours was devoted to testing as it is something that I need to learn for JS and React.
+
+As I need to grow in this I went through the pain of the learning process (which was painful but done now :)
 
 ## Further Developments
 
 Filter for search by phrase (order by relevance, passage order, how many per fetch)
 
-Change bible version (stored in global context "store")
-
-Refactor the API module to create query urls programmatically
+Change bible version (stored in global context "store" or just at App level) available in cog area
 
 404 page (meant to get that in there before the end, sorry)
 
 Better styling
 
-Psalms don't seem to be getting well :( 
+Chapters larger than 9 have a bug in the Regexp used to decipher them from the URL.
 
-If there is an error on passage search, I forgot to turn it off afterwards :(
+If there is an error on passage search
+
+Split the text by \r\n so that I can output in seperate paragraphs...
+
+## Refactoring needed
+
+Refactor the API module to create query urls programmatically
+
+Refactor the titles in the site to be consistent (H1 H2 etc. in seperate components)
+
+## Fixes done
+
+### Highlighting of words in search
+
+If you search 'the' with the phrase search, then any fragment of a word was being highlighted.
+
+'\b' word boundaries have been added to the regexp for highlighting to stop this
+
+### Error message staying on
+
+The error message is now reset before each new get of data
+
+### Error when getting chapters bigger than 9
+
+The url parser had a bug in the regexp used to pull out the book and chapter names
+
+This has now been fixed
 
 ## The Dev Environment
 
